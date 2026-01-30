@@ -27,10 +27,12 @@ export default defineConfig({
   server: {
     host: true,
     port: 5173,
+    historyApiFallback: true,  // Ensure that all routes fallback to index.html
   },
   preview: {
     host: true,
     port: 4173,
+    historyApiFallback: true,  // Ensure that all routes fallback to index.html during preview as well
   },
   define: {
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
