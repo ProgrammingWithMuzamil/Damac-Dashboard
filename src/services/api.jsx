@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 // Determine API base URL based on environment
-const API_BASE_URL = import.meta.env.PROD 
-  ? 'https://your-backend-domain.com' // Replace with your production backend URL
-  : 'http://localhost:3001';
+const API_BASE_URL = import.meta.env.PROD
+  ? 'https://damac-backend.onrender.com' // Replace with your production backend URL
+  : 'https://damac-backend.onrender.com';
 
 // Create axios instance
 const api = axios.create({
@@ -18,9 +18,9 @@ const api = axios.create({
 api.interceptors.request.use(
   (config) => {
     // Only add token for user management and POST/PUT/DELETE requests
-    const isProtectedRoute = config.url?.includes('/users') || 
-                           !['GET', 'HEAD', 'OPTIONS'].includes(config.method?.toUpperCase());
-    
+    const isProtectedRoute = config.url?.includes('/users') ||
+      !['GET', 'HEAD', 'OPTIONS'].includes(config.method?.toUpperCase());
+
     if (isProtectedRoute) {
       const token = localStorage.getItem('token');
       if (token) {
@@ -53,17 +53,17 @@ export const authAPI = {
     const response = await api.post('/api/login', { email, password });
     return response.data;
   },
-  
+
   register: async (userData) => {
     const response = await api.post('/api/register', userData);
     return response.data;
   },
-  
+
   logout: async () => {
     const response = await api.post('/api/logout');
     return response.data;
   },
-  
+
   getProfile: async () => {
     const response = await api.get('/api/profile');
     return response.data;
@@ -76,22 +76,22 @@ export const usersAPI = {
     const response = await api.get('/api/users');
     return response.data;
   },
-  
+
   getById: async (id) => {
     const response = await api.get(`/api/users/${id}`);
     return response.data;
   },
-  
+
   create: async (userData) => {
     const response = await api.post('/api/users', userData);
     return response.data;
   },
-  
+
   update: async (id, userData) => {
     const response = await api.put(`/api/users/${id}`, userData);
     return response.data;
   },
-  
+
   delete: async (id) => {
     const response = await api.delete(`/api/users/${id}`);
     return response.data;
@@ -104,12 +104,12 @@ export const propertiesAPI = {
     const response = await api.get('/api/properties');
     return response.data;
   },
-  
+
   getById: async (id) => {
     const response = await api.get(`/api/properties/${id}`);
     return response.data;
   },
-  
+
   create: async (propertyData) => {
     // Check if propertyData contains a file (FormData)
     if (propertyData instanceof FormData) {
@@ -125,7 +125,7 @@ export const propertiesAPI = {
       return response.data;
     }
   },
-  
+
   update: async (id, propertyData) => {
     // Check if propertyData contains a file (FormData)
     if (propertyData instanceof FormData) {
@@ -141,7 +141,7 @@ export const propertiesAPI = {
       return response.data;
     }
   },
-  
+
   delete: async (id) => {
     const response = await api.delete(`/api/properties/${id}`);
     return response.data;
@@ -154,12 +154,12 @@ export const collaborationsAPI = {
     const response = await api.get('/api/collaborations');
     return response.data;
   },
-  
+
   getById: async (id) => {
     const response = await api.get(`/api/collaborations/${id}`);
     return response.data;
   },
-  
+
   create: async (collaborationData) => {
     // Check if collaborationData contains files (FormData)
     if (collaborationData instanceof FormData) {
@@ -175,7 +175,7 @@ export const collaborationsAPI = {
       return response.data;
     }
   },
-  
+
   update: async (id, collaborationData) => {
     // Check if collaborationData contains files (FormData)
     if (collaborationData instanceof FormData) {
@@ -191,7 +191,7 @@ export const collaborationsAPI = {
       return response.data;
     }
   },
-  
+
   delete: async (id) => {
     const response = await api.delete(`/api/collaborations/${id}`);
     return response.data;
@@ -204,12 +204,12 @@ export const slidesAPI = {
     const response = await api.get('/api/slides');
     return response.data;
   },
-  
+
   getById: async (id) => {
     const response = await api.get(`/api/slides/${id}`);
     return response.data;
   },
-  
+
   create: async (slideData) => {
     // Check if slideData contains a file (FormData)
     if (slideData instanceof FormData) {
@@ -225,7 +225,7 @@ export const slidesAPI = {
       return response.data;
     }
   },
-  
+
   update: async (id, slideData) => {
     // Check if slideData contains a file (FormData)
     if (slideData instanceof FormData) {
@@ -241,7 +241,7 @@ export const slidesAPI = {
       return response.data;
     }
   },
-  
+
   delete: async (id) => {
     const response = await api.delete(`/api/slides/${id}`);
     return response.data;
@@ -254,12 +254,12 @@ export const yourperfectAPI = {
     const response = await api.get('/api/yourperfect');
     return response.data;
   },
-  
+
   getById: async (id) => {
     const response = await api.get(`/api/yourperfect/${id}`);
     return response.data;
   },
-  
+
   create: async (itemData) => {
     // Check if itemData contains a file (FormData)
     if (itemData instanceof FormData) {
@@ -275,7 +275,7 @@ export const yourperfectAPI = {
       return response.data;
     }
   },
-  
+
   update: async (id, itemData) => {
     // Check if itemData contains a file (FormData)
     if (itemData instanceof FormData) {
@@ -291,7 +291,7 @@ export const yourperfectAPI = {
       return response.data;
     }
   },
-  
+
   delete: async (id) => {
     const response = await api.delete(`/api/yourperfect/${id}`);
     return response.data;
@@ -304,12 +304,12 @@ export const sidebarcardAPI = {
     const response = await api.get('/api/sidebarcard');
     return response.data;
   },
-  
+
   getById: async (id) => {
     const response = await api.get(`/api/sidebarcard/${id}`);
     return response.data;
   },
-  
+
   create: async (itemData) => {
     // Check if itemData contains a file (FormData)
     if (itemData instanceof FormData) {
@@ -325,7 +325,7 @@ export const sidebarcardAPI = {
       return response.data;
     }
   },
-  
+
   update: async (id, itemData) => {
     // Check if itemData contains a file (FormData)
     if (itemData instanceof FormData) {
@@ -341,7 +341,7 @@ export const sidebarcardAPI = {
       return response.data;
     }
   },
-  
+
   delete: async (id) => {
     const response = await api.delete(`/api/sidebarcard/${id}`);
     return response.data;
@@ -354,22 +354,22 @@ export const damacAPI = {
     const response = await api.get('/api/damac');
     return response.data;
   },
-  
+
   getById: async (id) => {
     const response = await api.get(`/api/damac/${id}`);
     return response.data;
   },
-  
+
   create: async (itemData) => {
     const response = await api.post('/api/damac', itemData);
     return response.data;
   },
-  
+
   update: async (id, itemData) => {
     const response = await api.put(`/api/damac/${id}`, itemData);
     return response.data;
   },
-  
+
   delete: async (id) => {
     const response = await api.delete(`/api/damac/${id}`);
     return response.data;
@@ -382,22 +382,22 @@ export const empoweringcommunitiesAPI = {
     const response = await api.get('/api/empoweringcommunities');
     return response.data;
   },
-  
+
   getById: async (id) => {
     const response = await api.get(`/api/empoweringcommunities/${id}`);
     return response.data;
   },
-  
+
   create: async (itemData) => {
     const response = await api.post('/api/empoweringcommunities', itemData);
     return response.data;
   },
-  
+
   update: async (id, itemData) => {
     const response = await api.put(`/api/empoweringcommunities/${id}`, itemData);
     return response.data;
   },
-  
+
   delete: async (id) => {
     const response = await api.delete(`/api/empoweringcommunities/${id}`);
     return response.data;
