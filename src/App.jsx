@@ -5,7 +5,6 @@ import { useAuth } from './contexts/AuthContext.jsx';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Login from './components/Login.jsx';
-import Signup from './components/Signup.jsx';
 import Layout from './components/Layout.jsx';
 import Dashboard from './components/Dashboard.jsx';
 import Users from './pages/Users.jsx';
@@ -57,14 +56,6 @@ function App() {
             element={
               <PublicRoute>
                 <Login />
-              </PublicRoute>
-            }
-          />
-          <Route
-            path="/signup"
-            element={
-              <PublicRoute>
-                <Signup />
               </PublicRoute>
             }
           />
