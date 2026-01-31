@@ -2,8 +2,8 @@ import axios from 'axios';
 
 // Determine API base URL based on environment
 const API_BASE_URL = import.meta.env.PROD
-  ? 'https://damac-backend.onrender.com' // Replace with your production backend URL
-  : 'https://damac-backend.onrender.com';
+  ? 'https://damac-backend-xssr.onrender.com' // Replace with your production backend URL
+  : 'https://damac-backend-xssr.onrender.com';
 
 // Create axios instance
 const api = axios.create({
