@@ -28,7 +28,7 @@ const Login = () => {
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <div className="mx-auto max-w-md">
             <h2 className="text-center text-3xl font-extrabold text-gray-900">
-              DAMAC Admin
+              iLand Admin
             </h2>
             <p className="mt-2 text-center text-sm text-gray-600">
               Sign in to your account

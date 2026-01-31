@@ -54,7 +54,7 @@ const Sidebar = () => {
         <div className="p-4 lg:p-6">
           <div className="flex items-center justify-between">
             <div className={isExpanded ? 'block' : 'hidden lg:block'}>
-              <h1 className="text-xl lg:text-2xl font-bold text-blue-400">DAMAC</h1>
+              <h1 className="text-xl lg:text-2xl font-bold text-blue-400">iLand</h1>
               <p className="text-gray-400 text-xs lg:text-sm mt-1">Admin Panel</p>
             </div>
             <button

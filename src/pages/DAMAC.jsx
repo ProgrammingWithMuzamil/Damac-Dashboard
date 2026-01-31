@@ -2,7 +2,7 @@ import React from 'react';
 import CRUDManager from '../components/CRUDManager';
 import { damacAPI } from '../services/api.jsx';
 
-const DAMAC = () => {
+const iLand = () => {
   const columns = [
     { key: 'id', label: 'ID' },
     { 
@@ -47,14 +47,14 @@ const DAMAC = () => {
 
   return (
     <CRUDManager
-      title="DAMAC"
+      title="iLand"
       api={damacAPI}
       columns={columns}
       formFields={formFields}
       icon="🏢"
-      emptyMessage="No DAMAC videos found"
+      emptyMessage="No iLand videos found"
     />
   );
 };
 
-export default DAMAC;
+export default iLand;
