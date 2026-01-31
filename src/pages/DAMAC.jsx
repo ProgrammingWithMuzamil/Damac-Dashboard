@@ -1,20 +1,20 @@
 import React from 'react';
-import CRUDManager from '../components/CRUDManager';
+import CRUDManager from '../components/CRUDManager.jsx';
 import { damacAPI } from '../services/api.jsx';
 
 const iLand = () => {
   const columns = [
     { key: 'id', label: 'ID' },
-    { 
-      key: 'video', 
+    {
+      key: 'video',
       label: 'Video Link',
       render: (value) => {
         if (!value) return 'No Video';
-        
+
         return (
-          <a 
-            href={value} 
-            target="_blank" 
+          <a
+            href={value}
+            target="_blank"
             rel="noopener noreferrer"
             className="text-blue-600 hover:text-blue-800 underline"
           >
@@ -23,13 +23,13 @@ const iLand = () => {
         );
       }
     },
-    { 
-      key: 'createdAt', 
+    {
+      key: 'createdAt',
       label: 'Created At',
       render: (value) => new Date(value).toLocaleDateString()
     },
-    { 
-      key: 'updatedAt', 
+    {
+      key: 'updatedAt',
       label: 'Updated At',
       render: (value) => new Date(value).toLocaleDateString()
     },
