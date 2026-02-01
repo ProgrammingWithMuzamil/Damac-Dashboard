@@ -261,7 +261,7 @@ const CRUDManager = ({
                     {columns.map((column) => (
                       <td key={column.key} className="px-4 sm:px-6 py-4 text-sm text-gray-900">
                         <div className="max-w-xs sm:max-w-none">
-                          {column.render ? column.render(item[column.key]) : item[column.key]}
+                          {column.render ? column.render(item[column.key], item) : item[column.key]}
                         </div>
                       </td>
                     ))}
