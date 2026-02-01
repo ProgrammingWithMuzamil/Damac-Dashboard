@@ -8,8 +8,10 @@ const Slides = () => {
     { 
       key: 'img_url', 
       label: 'Image', 
-      render: (value) => {
-        if (!value) {
+      render: (value, row) => {
+        const imageUrl = value || row.img;
+        
+        if (!imageUrl) {
           return (
             <div className="w-20 h-16 bg-gray-200 rounded flex items-center justify-center text-gray-500 text-xs">
               No Image
@@ -19,11 +21,16 @@ const Slides = () => {
         
         return (
           <img 
-            src={value} 
+            src={imageUrl} 
             alt="Slide" 
             className="w-20 h-16 object-cover rounded" 
-            style={{ display: 'block' }}
-            crossOrigin="anonymous"
+            onError={(e) => {
+              console.error('Slide image failed to load:', imageUrl);
+              e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA4MCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjY0IiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0yNiAzMkMzOCAyMCA0NiAyMCA0NiAyMkM0NiAyNCAzOCAzNiAyNiAzMloiIGZpbGw9IiM5Q0EzQVYiLz4KPGNpcmNsZSBjeD0iMjYiIGN5PSIyMCIgcj0iMiIgZmlsbD0iIzlDQTNBViIvPgo8L3N2Zz4K';
+            }}
+            onLoad={() => {
+              console.log('Slide image loaded successfully:', imageUrl);
+            }}
           />
         );
       }
@@ -33,7 +40,26 @@ const Slides = () => {
     { 
       key: 'points', 
       label: 'Points',
-      render: (value) => Array.isArray(value) ? value.join(', ') : value
+      render: (value) => {
+        if (!value) return 'No Points';
+        
+        try {
+          // Handle both string and array formats
+          let pointsArray = [];
+          if (typeof value === 'string') {
+            pointsArray = JSON.parse(value);
+          } else if (Array.isArray(value)) {
+            pointsArray = value;
+          }
+          
+          return pointsArray.length > 0 
+            ? pointsArray.slice(0, 3).join(', ') + (pointsArray.length > 3 ? '...' : '')
+            : 'No Points';
+        } catch (e) {
+          console.error('Error parsing points:', value, e);
+          return String(value);
+        }
+      }
     },
     { 
       key: 'createdAt', 

@@ -8,8 +8,10 @@ const Collaborations = () => {
     { 
       key: 'img_url', 
       label: 'Image', 
-      render: (value) => {
-        if (!value) {
+      render: (value, row) => {
+        const imageUrl = value || row.img;
+        
+        if (!imageUrl) {
           return (
             <div className="w-16 h-16 bg-gray-200 rounded flex items-center justify-center text-gray-500 text-xs">
               No Image
@@ -19,11 +21,16 @@ const Collaborations = () => {
         
         return (
           <img 
-            src={value} 
+            src={imageUrl} 
             alt="Collaboration" 
             className="w-16 h-16 object-cover rounded" 
-            style={{ display: 'block' }}
-            crossOrigin="anonymous"
+            onError={(e) => {
+              console.error('Collaboration image failed to load:', imageUrl);
+              e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0yMSAzMkMzMiAyMSA0MSAyMSA0MSAyM0M0MSAyNSAzMiAzNiAyMSAzMloiIGZpbGw9IiM5Q0EzQVYiLz4KPGNpcmNsZSBjeD0iMjEiIGN5PSIyMSIgcj0iMiIgZmlsbD0iIzlDQTNBViIvPgo8L3N2Zz4K';
+            }}
+            onLoad={() => {
+              console.log('Collaboration image loaded successfully:', imageUrl);
+            }}
           />
         );
       }
@@ -31,8 +38,10 @@ const Collaborations = () => {
     { 
       key: 'logo_url', 
       label: 'Logo', 
-      render: (value) => {
-        if (!value) {
+      render: (value, row) => {
+        const logoUrl = value || row.logo;
+        
+        if (!logoUrl) {
           return (
             <div className="w-12 h-12 bg-gray-200 rounded flex items-center justify-center text-gray-500 text-xs">
               No Logo
@@ -42,11 +51,16 @@ const Collaborations = () => {
         
         return (
           <img 
-            src={value} 
+            src={logoUrl} 
             alt="Logo" 
             className="w-12 h-12 object-cover rounded" 
-            style={{ display: 'block' }}
-            crossOrigin="anonymous"
+            onError={(e) => {
+              console.error('Logo failed to load:', logoUrl);
+              e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4IiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0xNiAyNEMyNCAxNiAzMiAxNiAzMiAxOEMzMiAyMCAyNCAyOCAxNiAyNFoiIGZpbGw9IiM5Q0EzQVYiLz4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMS41IiBmaWxsPSIjOUNBM0FWIi8+Cjwvc3ZnPgo=';
+            }}
+            onLoad={() => {
+              console.log('Logo loaded successfully:', logoUrl);
+            }}
           />
         );
       }

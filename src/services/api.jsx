@@ -3,7 +3,7 @@ import axios from 'axios';
 // Determine API base URL based on environment
 const API_BASE_URL = import.meta.env.PROD
   ? 'https://test-v9ml.onrender.com' // Replace with your production backend URL
-  : 'https://test-v9ml.onrender.com';
+  : 'http://localhost:8000';
 
 // Create axios instance
 const api = axios.create({

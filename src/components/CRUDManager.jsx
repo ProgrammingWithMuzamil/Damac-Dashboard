@@ -51,10 +51,22 @@ const CRUDManager = ({
             if (formData[field.name] instanceof File) {
               submitData.append(field.name, formData[field.name]);
             }
+          } else if (field.name === 'points' && formData[field.name]) {
+            // Convert comma-separated points to JSON array
+            const pointsArray = formData[field.name].split(',').map(point => point.trim()).filter(point => point);
+            submitData.append(field.name, JSON.stringify(pointsArray));
           } else if (formData[field.name] !== undefined && formData[field.name] !== null) {
             submitData.append(field.name, formData[field.name]);
           }
         });
+      } else {
+        // Handle JSON conversion for regular form data too
+        if (formData.points) {
+          submitData = {
+            ...formData,
+            points: JSON.stringify(formData.points.split(',').map(point => point.trim()).filter(point => point))
+          };
+        }
       }
       
       if (editingItem) {
