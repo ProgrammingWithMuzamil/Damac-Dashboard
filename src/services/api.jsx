@@ -20,8 +20,11 @@ api.interceptors.request.use(
     // Add token for all routes except public GET endpoints and auth routes
     const isAuthRoute = config.url?.includes('/login/') || config.url?.includes('/register/');
     const isGetRequest = config.method?.toUpperCase() === 'GET';
+    const isProfileRoute = config.url?.includes('/profile/');
+    const isUserDetailRoute = config.url?.match(/\/api\/users\/\d+\/$/); // Matches /api/users/{id}/
     
-    if (!isAuthRoute && !isGetRequest) {
+    // Don't add token for auth routes or public GET requests (except profile and user details)
+    if (!isAuthRoute && (!isGetRequest || isProfileRoute || isUserDetailRoute)) {
       const token = localStorage.getItem('token');
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
@@ -39,9 +42,13 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      window.location.href = '/login';
+      // Only redirect if not during initial token verification
+      const isProfileRequest = error.config?.url?.includes('/profile/');
+      if (!isProfileRequest) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        window.location.href = '/login';
+      }
     }
     return Promise.reject(error);
   }
