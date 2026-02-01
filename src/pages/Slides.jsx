@@ -6,7 +6,7 @@ const Slides = () => {
   const columns = [
     { key: 'id', label: 'ID' },
     { 
-      key: 'img', 
+      key: 'img_url', 
       label: 'Image', 
       render: (value) => {
         if (!value) {
@@ -17,12 +17,9 @@ const Slides = () => {
           );
         }
         
-        // The backend now returns full URLs, so we don't need to construct them
-        const imageUrl = value;
-        
         return (
           <img 
-            src={imageUrl} 
+            src={value} 
             alt="Slide" 
             className="w-20 h-16 object-cover rounded" 
             style={{ display: 'block' }}

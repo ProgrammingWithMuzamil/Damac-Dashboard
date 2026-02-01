@@ -6,7 +6,7 @@ const Collaborations = () => {
   const columns = [
     { key: 'id', label: 'ID' },
     { 
-      key: 'img', 
+      key: 'img_url', 
       label: 'Image', 
       render: (value) => {
         if (!value) {
@@ -17,12 +17,9 @@ const Collaborations = () => {
           );
         }
         
-        // The backend now returns full URLs, so we don't need to construct them
-        const imageUrl = value;
-        
         return (
           <img 
-            src={imageUrl} 
+            src={value} 
             alt="Collaboration" 
             className="w-16 h-16 object-cover rounded" 
             style={{ display: 'block' }}
@@ -32,7 +29,7 @@ const Collaborations = () => {
       }
     },
     { 
-      key: 'logo', 
+      key: 'logo_url', 
       label: 'Logo', 
       render: (value) => {
         if (!value) {
@@ -43,12 +40,9 @@ const Collaborations = () => {
           );
         }
         
-        // The backend now returns full URLs, so we don't need to construct them
-        const imageUrl = value;
-        
         return (
           <img 
-            src={imageUrl} 
+            src={value} 
             alt="Logo" 
             className="w-12 h-12 object-cover rounded" 
             style={{ display: 'block' }}

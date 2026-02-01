@@ -24,7 +24,7 @@ const Sidebar = () => {
     { path: '/slides', label: 'Slides', icon: <FiImage /> },
     { path: '/yourperfect', label: 'YourPerfect', icon: <FiStar /> },
     { path: '/sidebarcard', label: 'Sidebar Cards', icon: <FiCreditCard /> },
-    { path: '/damac', label: 'DAMAC', icon: <FiHome /> },
+    { path: '/damac', label: 'iLand', icon: <FiHome /> },
     { path: '/empoweringcommunities', label: 'Empowering Communities', icon: <FiGlobe /> },
   ];
 
