@@ -14,14 +14,14 @@ const api = axios.create({
   },
 });
 
-// Request interceptor - only add token for protected routes
+// Request interceptor - add token only for authenticated routes
 api.interceptors.request.use(
   (config) => {
-    // Only add token for user management and POST/PUT/DELETE requests
-    const isProtectedRoute = config.url?.includes('/users') ||
-      !['GET', 'HEAD', 'OPTIONS'].includes(config.method?.toUpperCase());
-
-    if (isProtectedRoute) {
+    // Add token for all routes except public GET endpoints and auth routes
+    const isAuthRoute = config.url?.includes('/login/') || config.url?.includes('/register/');
+    const isGetRequest = config.method?.toUpperCase() === 'GET';
+    
+    if (!isAuthRoute && !isGetRequest) {
       const token = localStorage.getItem('token');
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
@@ -55,7 +55,7 @@ export const authAPI = {
   },
 
   register: async (userData) => {
-    const response = await api.post('/api/register', userData);
+    const response = await api.post('/api/register/', userData);
     return response.data;
   },
 
@@ -73,27 +73,27 @@ export const authAPI = {
 // Users API
 export const usersAPI = {
   getAll: async () => {
-    const response = await api.get('/api/users');
+    const response = await api.get('/api/users/');
     return response.data;
   },
 
   getById: async (id) => {
-    const response = await api.get(`/api/users/${id}`);
+    const response = await api.get(`/api/users/${id}/`);
     return response.data;
   },
 
   create: async (userData) => {
-    const response = await api.post('/api/users', userData);
+    const response = await api.post('/api/users/', userData);
     return response.data;
   },
 
   update: async (id, userData) => {
-    const response = await api.put(`/api/users/${id}`, userData);
+    const response = await api.put(`/api/users/${id}/`, userData);
     return response.data;
   },
 
   delete: async (id) => {
-    const response = await api.delete(`/api/users/${id}`);
+    const response = await api.delete(`/api/users/${id}/`);
     return response.data;
   },
 };
