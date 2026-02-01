@@ -42,9 +42,11 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      // Only redirect if not during initial token verification
+      // Don't auto-logout for profile API or user API failures
       const isProfileRequest = error.config?.url?.includes('/profile/');
-      if (!isProfileRequest) {
+      const isUserRequest = error.config?.url?.includes('/api/users/');
+      
+      if (!isProfileRequest && !isUserRequest) {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         window.location.href = '/login';

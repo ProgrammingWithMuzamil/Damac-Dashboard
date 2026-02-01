@@ -29,10 +29,10 @@ export const AuthProvider = ({ children }) => {
         .catch((error) => {
           console.error('Profile verification failed:', error);
           console.error('Error response:', error.response);
-          if (error.response?.status === 401) {
-            console.log('Token invalid, removing...');
-            localStorage.removeItem('token');
-          }
+          // Don't remove token on profile failure - let user stay logged in
+          console.log('Profile failed but keeping user logged in');
+          // Set a default user to prevent logout
+          setUser({ id: null, name: 'User', email: '', role: 'user' });
         })
         .finally(() => {
           setLoading(false);
