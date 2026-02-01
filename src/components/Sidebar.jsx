@@ -18,7 +18,7 @@ const Sidebar = () => {
 
   const menuItems = [
     { path: '/dashboard', label: 'Dashboard', icon: <FiHome /> },
-    { path: '/users', label: 'Users', icon: <FiUsers /> },
+    // { path: '/users', label: 'Users', icon: <FiUsers /> },
     { path: '/properties', label: 'Properties', icon: <FiHome /> },
     { path: '/collaborations', label: 'Collaborations', icon: <FiUsers /> },
     { path: '/slides', label: 'Slides', icon: <FiImage /> },

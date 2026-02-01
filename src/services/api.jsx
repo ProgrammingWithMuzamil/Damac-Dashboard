@@ -65,7 +65,7 @@ export const authAPI = {
   },
 
   getProfile: async () => {
-    const response = await api.get('/api/profile');
+    const response = await api.get('/api/profile/');
     return response.data;
   },
 };
@@ -101,19 +101,19 @@ export const usersAPI = {
 // Properties API
 export const propertiesAPI = {
   getAll: async () => {
-    const response = await api.get('/api/properties');
+    const response = await api.get('/api/properties/');
     return response.data;
   },
 
   getById: async (id) => {
-    const response = await api.get(`/api/properties/${id}`);
+    const response = await api.get(`/api/properties/${id}/`);
     return response.data;
   },
 
   create: async (propertyData) => {
     // Check if propertyData contains a file (FormData)
     if (propertyData instanceof FormData) {
-      const response = await api.post('/api/properties', propertyData, {
+      const response = await api.post('/api/properties/', propertyData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -121,7 +121,7 @@ export const propertiesAPI = {
       return response.data;
     } else {
       // Fallback for URL-based images
-      const response = await api.post('/api/properties', propertyData);
+      const response = await api.post('/api/properties/', propertyData);
       return response.data;
     }
   },
@@ -129,7 +129,7 @@ export const propertiesAPI = {
   update: async (id, propertyData) => {
     // Check if propertyData contains a file (FormData)
     if (propertyData instanceof FormData) {
-      const response = await api.put(`/api/properties/${id}`, propertyData, {
+      const response = await api.put(`/api/properties/${id}/`, propertyData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -137,13 +137,13 @@ export const propertiesAPI = {
       return response.data;
     } else {
       // Fallback for URL-based images
-      const response = await api.put(`/api/properties/${id}`, propertyData);
+      const response = await api.put(`/api/properties/${id}/`, propertyData);
       return response.data;
     }
   },
 
   delete: async (id) => {
-    const response = await api.delete(`/api/properties/${id}`);
+    const response = await api.delete(`/api/properties/${id}/`);
     return response.data;
   },
 };
@@ -151,7 +151,7 @@ export const propertiesAPI = {
 // Collaborations API
 export const collaborationsAPI = {
   getAll: async () => {
-    const response = await api.get('/api/collaborations');
+    const response = await api.get('/api/collaborations/');
     return response.data;
   },
 
@@ -163,7 +163,7 @@ export const collaborationsAPI = {
   create: async (collaborationData) => {
     // Check if collaborationData contains files (FormData)
     if (collaborationData instanceof FormData) {
-      const response = await api.post('/api/collaborations', collaborationData, {
+      const response = await api.post('/api/collaborations/', collaborationData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -171,7 +171,7 @@ export const collaborationsAPI = {
       return response.data;
     } else {
       // Fallback for URL-based images
-      const response = await api.post('/api/collaborations', collaborationData);
+      const response = await api.post('/api/collaborations/', collaborationData);
       return response.data;
     }
   },
@@ -179,7 +179,7 @@ export const collaborationsAPI = {
   update: async (id, collaborationData) => {
     // Check if collaborationData contains files (FormData)
     if (collaborationData instanceof FormData) {
-      const response = await api.put(`/api/collaborations/${id}`, collaborationData, {
+      const response = await api.put(`/api/collaborations/${id}/`, collaborationData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -187,13 +187,13 @@ export const collaborationsAPI = {
       return response.data;
     } else {
       // Fallback for URL-based images
-      const response = await api.put(`/api/collaborations/${id}`, collaborationData);
+      const response = await api.put(`/api/collaborations/${id}/`, collaborationData);
       return response.data;
     }
   },
 
   delete: async (id) => {
-    const response = await api.delete(`/api/collaborations/${id}`);
+    const response = await api.delete(`/api/collaborations/${id}/`);
     return response.data;
   },
 };
@@ -201,19 +201,19 @@ export const collaborationsAPI = {
 // Slides API
 export const slidesAPI = {
   getAll: async () => {
-    const response = await api.get('/api/slides');
+    const response = await api.get('/api/slides/');
     return response.data;
   },
 
   getById: async (id) => {
-    const response = await api.get(`/api/slides/${id}`);
+    const response = await api.get(`/api/slides/${id}/`);
     return response.data;
   },
 
   create: async (slideData) => {
     // Check if slideData contains a file (FormData)
     if (slideData instanceof FormData) {
-      const response = await api.post('/api/slides', slideData, {
+      const response = await api.post('/api/slides/', slideData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -221,7 +221,7 @@ export const slidesAPI = {
       return response.data;
     } else {
       // Fallback for URL-based images
-      const response = await api.post('/api/slides', slideData);
+      const response = await api.post('/api/slides/', slideData);
       return response.data;
     }
   },
@@ -229,7 +229,7 @@ export const slidesAPI = {
   update: async (id, slideData) => {
     // Check if slideData contains a file (FormData)
     if (slideData instanceof FormData) {
-      const response = await api.put(`/api/slides/${id}`, slideData, {
+      const response = await api.put(`/api/slides/${id}/`, slideData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -237,13 +237,13 @@ export const slidesAPI = {
       return response.data;
     } else {
       // Fallback for URL-based images
-      const response = await api.put(`/api/slides/${id}`, slideData);
+      const response = await api.put(`/api/slides/${id}/`, slideData);
       return response.data;
     }
   },
 
   delete: async (id) => {
-    const response = await api.delete(`/api/slides/${id}`);
+    const response = await api.delete(`/api/slides/${id}/`);
     return response.data;
   },
 };
@@ -251,19 +251,19 @@ export const slidesAPI = {
 // YourPerfect API
 export const yourperfectAPI = {
   getAll: async () => {
-    const response = await api.get('/api/yourperfect');
+    const response = await api.get('/api/yourperfect/');
     return response.data;
   },
 
   getById: async (id) => {
-    const response = await api.get(`/api/yourperfect/${id}`);
+    const response = await api.get(`/api/yourperfect/${id}/`);
     return response.data;
   },
 
   create: async (itemData) => {
     // Check if itemData contains a file (FormData)
     if (itemData instanceof FormData) {
-      const response = await api.post('/api/yourperfect', itemData, {
+      const response = await api.post('/api/yourperfect/', itemData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -271,7 +271,7 @@ export const yourperfectAPI = {
       return response.data;
     } else {
       // Fallback for URL-based images
-      const response = await api.post('/api/yourperfect', itemData);
+      const response = await api.post('/api/yourperfect/', itemData);
       return response.data;
     }
   },
@@ -279,7 +279,7 @@ export const yourperfectAPI = {
   update: async (id, itemData) => {
     // Check if itemData contains a file (FormData)
     if (itemData instanceof FormData) {
-      const response = await api.put(`/api/yourperfect/${id}`, itemData, {
+      const response = await api.put(`/api/yourperfect/${id}/`, itemData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -287,13 +287,13 @@ export const yourperfectAPI = {
       return response.data;
     } else {
       // Fallback for URL-based images
-      const response = await api.put(`/api/yourperfect/${id}`, itemData);
+      const response = await api.put(`/api/yourperfect/${id}/`, itemData);
       return response.data;
     }
   },
 
   delete: async (id) => {
-    const response = await api.delete(`/api/yourperfect/${id}`);
+    const response = await api.delete(`/api/yourperfect/${id}/`);
     return response.data;
   },
 };
@@ -301,19 +301,19 @@ export const yourperfectAPI = {
 // SidebarCard API
 export const sidebarcardAPI = {
   getAll: async () => {
-    const response = await api.get('/api/sidebarcard');
+    const response = await api.get('/api/sidebarcard/');
     return response.data;
   },
 
   getById: async (id) => {
-    const response = await api.get(`/api/sidebarcard/${id}`);
+    const response = await api.get(`/api/sidebarcard/${id}/`);
     return response.data;
   },
 
   create: async (itemData) => {
     // Check if itemData contains a file (FormData)
     if (itemData instanceof FormData) {
-      const response = await api.post('/api/sidebarcard', itemData, {
+      const response = await api.post('/api/sidebarcard/', itemData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -321,7 +321,7 @@ export const sidebarcardAPI = {
       return response.data;
     } else {
       // Fallback for URL-based images
-      const response = await api.post('/api/sidebarcard', itemData);
+      const response = await api.post('/api/sidebarcard/', itemData);
       return response.data;
     }
   },
@@ -329,7 +329,7 @@ export const sidebarcardAPI = {
   update: async (id, itemData) => {
     // Check if itemData contains a file (FormData)
     if (itemData instanceof FormData) {
-      const response = await api.put(`/api/sidebarcard/${id}`, itemData, {
+      const response = await api.put(`/api/sidebarcard/${id}/`, itemData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -337,13 +337,13 @@ export const sidebarcardAPI = {
       return response.data;
     } else {
       // Fallback for URL-based images
-      const response = await api.put(`/api/sidebarcard/${id}`, itemData);
+      const response = await api.put(`/api/sidebarcard/${id}/`, itemData);
       return response.data;
     }
   },
 
   delete: async (id) => {
-    const response = await api.delete(`/api/sidebarcard/${id}`);
+    const response = await api.delete(`/api/sidebarcard/${id}/`);
     return response.data;
   },
 };
@@ -351,27 +351,27 @@ export const sidebarcardAPI = {
 // DAMAC API
 export const damacAPI = {
   getAll: async () => {
-    const response = await api.get('/api/damac');
+    const response = await api.get('/api/damac/');
     return response.data;
   },
 
   getById: async (id) => {
-    const response = await api.get(`/api/damac/${id}`);
+    const response = await api.get(`/api/damac/${id}/`);
     return response.data;
   },
 
   create: async (itemData) => {
-    const response = await api.post('/api/damac', itemData);
+    const response = await api.post('/api/damac/', itemData);
     return response.data;
   },
 
   update: async (id, itemData) => {
-    const response = await api.put(`/api/damac/${id}`, itemData);
+    const response = await api.put(`/api/damac/${id}/`, itemData);
     return response.data;
   },
 
   delete: async (id) => {
-    const response = await api.delete(`/api/damac/${id}`);
+    const response = await api.delete(`/api/damac/${id}/`);
     return response.data;
   },
 };
@@ -379,7 +379,7 @@ export const damacAPI = {
 // EmpoweringCommunities API
 export const empoweringcommunitiesAPI = {
   getAll: async () => {
-    const response = await api.get('/api/empoweringcommunities');
+    const response = await api.get('/api/empoweringcommunities/');
     return response.data;
   },
 
@@ -389,17 +389,17 @@ export const empoweringcommunitiesAPI = {
   },
 
   create: async (itemData) => {
-    const response = await api.post('/api/empoweringcommunities', itemData);
+    const response = await api.post('/api/empoweringcommunities/', itemData);
     return response.data;
   },
 
   update: async (id, itemData) => {
-    const response = await api.put(`/api/empoweringcommunities/${id}`, itemData);
+    const response = await api.put(`/api/empoweringcommunities/${id}/`, itemData);
     return response.data;
   },
 
   delete: async (id) => {
-    const response = await api.delete(`/api/empoweringcommunities/${id}`);
+    const response = await api.delete(`/api/empoweringcommunities/${id}/`);
     return response.data;
   },
 };

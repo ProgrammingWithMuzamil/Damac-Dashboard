@@ -17,37 +17,37 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      // Verify token and get user profile
-      authAPI.getProfile()
-        .then(response => {
-          setUser(response.user);
-        })
-        .catch(() => {
-          localStorage.removeItem('token');
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    } else {
-      setLoading(false);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const token = localStorage.getItem('token');
+  //   if (token) {
+  //     // Verify token and get user profile
+  //     authAPI.getProfile()
+  //       .then(response => {
+  //         setUser(response.user);
+  //       })
+  //       .catch(() => {
+  //         localStorage.removeItem('token');
+  //       })
+  //       .finally(() => {
+  //         setLoading(false);
+  //       });
+  //   } else {
+  //     setLoading(false);
+  //   }
+  // }, []);
 
   const login = async (email, password) => {
     try {
       setLoading(true);
       setError(null);
       const response = await authAPI.login(email, password);
-      
+
       if (response.token) {
         localStorage.setItem('token', response.token);
         setUser(response.user);
         toast.success('Login successful!');
       }
-      
+
       return response;
     } catch (err) {
       const errorMessage = err.response?.data?.message || 'Login failed';
@@ -71,13 +71,13 @@ export const AuthProvider = ({ children }) => {
       setLoading(true);
       setError(null);
       const response = await authAPI.register(userData);
-      
+
       if (response.token) {
         localStorage.setItem('token', response.token);
         setUser(response.user);
         toast.success('Registration successful!');
       }
-      
+
       return response;
     } catch (err) {
       const errorMessage = err.response?.data?.message || 'Registration failed';
