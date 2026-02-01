@@ -23,10 +23,16 @@ export const AuthProvider = ({ children }) => {
       // Verify token and get user profile
       authAPI.getProfile()
         .then(response => {
+          console.log('Profile response:', response);
           setUser(response.user);
         })
-        .catch(() => {
-          localStorage.removeItem('token');
+        .catch((error) => {
+          console.error('Profile verification failed:', error);
+          console.error('Error response:', error.response);
+          if (error.response?.status === 401) {
+            console.log('Token invalid, removing...');
+            localStorage.removeItem('token');
+          }
         })
         .finally(() => {
           setLoading(false);
@@ -40,16 +46,21 @@ export const AuthProvider = ({ children }) => {
     try {
       setLoading(true);
       setError(null);
+      console.log('Attempting login with:', email);
       const response = await authAPI.login(email, password);
+      console.log('Login response:', response);
 
       if (response.token) {
         localStorage.setItem('token', response.token);
         setUser(response.user);
         toast.success('Login successful!');
+        console.log('Login successful, user set:', response.user);
       }
 
       return response;
     } catch (err) {
+      console.error('Login error:', err);
+      console.error('Login error response:', err.response);
       const errorMessage = err.response?.data?.message || 'Login failed';
       setError(errorMessage);
       toast.error(errorMessage);
