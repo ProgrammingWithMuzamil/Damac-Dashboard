@@ -1,16 +1,16 @@
 import React from 'react';
 import CRUDManager from '../components/CRUDManager';
-import { slidesAPI } from '../services/api.jsx';
+import { slidesAPI } from '../services/modules';
 
 const Slides = () => {
   const columns = [
     { key: 'id', label: 'ID' },
-    { 
-      key: 'img_url', 
-      label: 'Image', 
+    {
+      key: 'img_url',
+      label: 'Image',
       render: (value, row) => {
         const imageUrl = value || row.img;
-        
+
         if (!imageUrl) {
           return (
             <div className="w-20 h-16 bg-gray-200 rounded flex items-center justify-center text-gray-500 text-xs">
@@ -18,12 +18,12 @@ const Slides = () => {
             </div>
           );
         }
-        
+
         return (
-          <img 
-            src={imageUrl} 
-            alt="Slide" 
-            className="w-20 h-16 object-cover rounded" 
+          <img
+            src={imageUrl}
+            alt="Slide"
+            className="w-20 h-16 object-cover rounded"
             onError={(e) => {
               console.error('Slide image failed to load:', imageUrl);
               e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA4MCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjY0IiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0yNiAzMkMzOCAyMCA0NiAyMCA0NiAyMkM0NiAyNCAzOCAzNiAyNiAzMloiIGZpbGw9IiM5Q0EzQVYiLz4KPGNpcmNsZSBjeD0iMjYiIGN5PSIyMCIgcj0iMiIgZmlsbD0iIzlDQTNBViIvPgo8L3N2Zz4K';
@@ -37,12 +37,12 @@ const Slides = () => {
     },
     { key: 'title', label: 'Title' },
     { key: 'location', label: 'Location' },
-    { 
-      key: 'points', 
+    {
+      key: 'points',
       label: 'Points',
       render: (value) => {
         if (!value) return 'No Points';
-        
+
         try {
           // Handle both string and array formats
           let pointsArray = [];
@@ -51,8 +51,8 @@ const Slides = () => {
           } else if (Array.isArray(value)) {
             pointsArray = value;
           }
-          
-          return pointsArray.length > 0 
+
+          return pointsArray.length > 0
             ? pointsArray.slice(0, 3).join(', ') + (pointsArray.length > 3 ? '...' : '')
             : 'No Points';
         } catch (e) {
@@ -61,16 +61,16 @@ const Slides = () => {
         }
       }
     },
-    { 
-      key: 'createdAt', 
-      label: 'Created At',
-      render: (value) => new Date(value).toLocaleDateString()
-    },
-    { 
-      key: 'updatedAt', 
-      label: 'Updated At',
-      render: (value) => new Date(value).toLocaleDateString()
-    },
+    // { 
+    //   key: 'createdAt', 
+    //   label: 'Created At',
+    //   render: (value) => new Date(value).toLocaleDateString()
+    // },
+    // { 
+    //   key: 'updatedAt', 
+    //   label: 'Updated At',
+    //   render: (value) => new Date(value).toLocaleDateString()
+    // },
   ];
 
   const formFields = [

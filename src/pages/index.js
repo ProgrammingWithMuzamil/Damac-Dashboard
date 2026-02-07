@@ -1,0 +1,22 @@
+// Export only components that actually exist
+export { default as Dashboard } from './Dashboard.jsx';
+export { default as Leads } from './Leads.jsx';
+export { default as Agents } from './Agents.jsx';
+export { default as Properties } from './Properties.jsx';
+export { default as Collaborations } from './Collaborations.jsx';
+export { default as Slides } from './Slides.jsx';
+export { default as YourPerfect } from './YourPerfect.jsx';
+export { default as SidebarCard } from './SidebarCard.jsx';
+export { default as DAMAC } from './DAMAC.jsx';
+export { default as EmpoweringCommunities } from './EmpoweringCommunities.jsx';
+export { default as Hero } from './Hero.jsx';
+export { default as Analytics } from './Analytics.jsx';
+export { default as CMSSettings } from './CMSSettings.jsx';
+export { default as AgentDashboard } from './AgentDashboard.jsx';
+export { default as AgentLeads } from './AgentLeads.jsx';
+export { default as AgentProperties } from './AgentProperties.jsx';
+export { default as AgentAppointments } from './AgentAppointments.jsx';
+export { default as AgentDocuments } from './AgentDocuments.jsx';
+export { default as AgentReports } from './AgentReports.jsx';
+export { default as Users } from './Users.jsx';
+export { default as Profile } from './Profile.jsx';

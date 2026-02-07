@@ -1,20 +1,20 @@
 import React from 'react';
 import CRUDManager from '../components/CRUDManager';
-import { empoweringcommunitiesAPI } from '../services/api.jsx';
+import { empoweringcommunitiesAPI } from '../services/modules';
 
 const EmpoweringCommunities = () => {
   const columns = [
     { key: 'id', label: 'ID' },
-    { 
-      key: 'video', 
+    {
+      key: 'video',
       label: 'Video Link',
       render: (value) => {
         if (!value) return 'No Video';
-        
+
         return (
-          <a 
-            href={value} 
-            target="_blank" 
+          <a
+            href={value}
+            target="_blank"
             rel="noopener noreferrer"
             className="text-blue-600 hover:text-blue-800 underline"
           >
@@ -23,16 +23,16 @@ const EmpoweringCommunities = () => {
         );
       }
     },
-    { 
-      key: 'createdAt', 
-      label: 'Created At',
-      render: (value) => new Date(value).toLocaleDateString()
-    },
-    { 
-      key: 'updatedAt', 
-      label: 'Updated At',
-      render: (value) => new Date(value).toLocaleDateString()
-    },
+    // { 
+    //   key: 'createdAt', 
+    //   label: 'Created At',
+    //   render: (value) => new Date(value).toLocaleDateString()
+    // },
+    // { 
+    //   key: 'updatedAt', 
+    //   label: 'Updated At',
+    //   render: (value) => new Date(value).toLocaleDateString()
+    // },
   ];
 
   const formFields = [

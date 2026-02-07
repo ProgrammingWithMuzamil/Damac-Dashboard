@@ -1,46 +1,46 @@
+// src/pages/admin/Users.jsx
 import React from 'react';
 import CRUDManager from '../components/CRUDManager';
-import { usersAPI } from '../services/api.jsx';
+import { usersAPI } from '../services/modules';
 
 const Users = () => {
   const columns = [
     { key: 'id', label: 'ID' },
-    { key: 'name', label: 'Name' },
+    { key: 'username', label: 'Username' },
     { key: 'email', label: 'Email' },
-    { key: 'role', label: 'Role' },
-    { 
-      key: 'createdAt', 
-      label: 'Created At',
-      render: (value) => new Date(value).toLocaleDateString()
-    },
-    { 
-      key: 'updatedAt', 
-      label: 'Updated At',
-      render: (value) => new Date(value).toLocaleDateString()
-    },
+    {
+      key: 'role',
+      label: 'Role',
+      render: value => (
+        <span className={`inline-flex px-2.5 py-1 text-xs font-semibold rounded-full ${value === 'admin' ? 'bg-purple-100 text-purple-800' : 'bg-blue-100 text-blue-800'
+          }`}>
+          {value?.toUpperCase() || 'USER'}
+        </span>
+      )
+    }
   ];
 
   const formFields = [
     {
-      name: 'name',
-      label: 'Name',
+      name: 'username',
+      label: 'Username',
       type: 'text',
       required: true,
-      placeholder: 'Enter name'
+      placeholder: 'Enter username'
     },
     {
       name: 'email',
       label: 'Email',
       type: 'email',
       required: true,
-      placeholder: 'Enter email'
+      placeholder: 'user@example.com'
     },
     {
       name: 'password',
       label: 'Password',
       type: 'password',
       required: true,
-      placeholder: 'Enter password'
+      placeholder: 'Minimum 6 characters'
     },
     {
       name: 'role',
@@ -48,8 +48,8 @@ const Users = () => {
       type: 'select',
       required: true,
       options: [
-        { value: 'user', label: 'User' },
-        { value: 'admin', label: 'Admin' }
+        { value: 'admin', label: 'Admin' },
+        { value: 'agent', label: 'Agent' }
       ]
     },
   ];
@@ -60,8 +60,8 @@ const Users = () => {
       api={usersAPI}
       columns={columns}
       formFields={formFields}
-      icon="👥"
-      emptyMessage="No users found"
+      icon="👤"
+      emptyMessage="No users found. Add your first user to get started."
     />
   );
 };

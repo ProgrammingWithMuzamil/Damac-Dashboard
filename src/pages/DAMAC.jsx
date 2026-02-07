@@ -1,6 +1,6 @@
 import React from 'react';
 import CRUDManager from '../components/CRUDManager.jsx';
-import { damacAPI } from '../services/api.jsx';
+import { damacAPI } from '../services/modules';
 
 const iLand = () => {
   const columns = [
@@ -23,16 +23,16 @@ const iLand = () => {
         );
       }
     },
-    {
-      key: 'createdAt',
-      label: 'Created At',
-      render: (value) => new Date(value).toLocaleDateString()
-    },
-    {
-      key: 'updatedAt',
-      label: 'Updated At',
-      render: (value) => new Date(value).toLocaleDateString()
-    },
+    // {
+    //   key: 'createdAt',
+    //   label: 'Created At',
+    //   render: (value) => new Date(value).toLocaleDateString()
+    // },
+    // {
+    //   key: 'updatedAt',
+    //   label: 'Updated At',
+    //   render: (value) => new Date(value).toLocaleDateString()
+    // },
   ];
 
   const formFields = [

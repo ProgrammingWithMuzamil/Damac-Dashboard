@@ -8,3 +8,92 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* Add cursor pointer to all buttons */
+button, 
+input[type="button"], 
+input[type="submit"], 
+.btn, 
+[role="button"],
+a[role="button"],
+button:focus,
+button:hover,
+input[type="button"]:focus,
+input[type="button"]:hover,
+input[type="submit"]:focus,
+input[type="submit"]:hover,
+.btn:focus,
+.btn:hover,
+[role="button"]:focus,
+[role="button"]:hover,
+a[role="button"]:focus,
+a[role="button"]:hover {
+  cursor: pointer !important;
+}
+
+/* Add cursor pointer to clickable elements */
+.clickable,
+[onclick],
+[role="link"],
+a:not([disabled]):not([href=""]):not([href^="javascript:void(0)"]),
+label[for] {
+  cursor: pointer !important;
+}
+
+/* Custom scrollbar styles for sidebar - Vertical Only */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  overflow-x: hidden;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+  height: 0; /* Hide horizontal scrollbar */
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: #1f2937;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #4b5563;
+  border-radius: 3px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: #6b7280;
+}
+
+.scrollbar-thumb-gray-700::-webkit-scrollbar-thumb {
+  background: #374151;
+}
+
+.scrollbar-thumb-gray-700::-webkit-scrollbar-thumb:hover {
+  background: #4b5563;
+}
+
+.scrollbar-track-gray-900::-webkit-scrollbar-track {
+  background: #111827;
+}
+
+/* Ensure no horizontal scrolling */
+.scrollbar-thin::-webkit-scrollbar-horizontal {
+  display: none;
+}
+
+/* Smooth scrolling for better UX */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbar for mobile but keep functionality */
+@media (max-width: 1024px) {
+  .scrollbar-thin {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar {
+    display: none;
+  }
+}

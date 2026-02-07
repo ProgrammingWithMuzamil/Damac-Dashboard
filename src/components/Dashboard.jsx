@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { usersAPI, propertiesAPI, collaborationsAPI, slidesAPI } from '../services/api.jsx';
+import { usersAPI, propertiesAPI, collaborationsAPI, slidesAPI } from '../services/modules';
+import { useSelector } from 'react-redux';
+import { selectToken, selectIsAuthenticated } from '../store/authSlice';
 
 const Dashboard = () => {
+  const token = useSelector(selectToken);
+  const isAuthenticated = useSelector(selectIsAuthenticated);
   const [stats, setStats] = useState({
     users: 0,
     properties: 0,
@@ -11,30 +15,42 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        const [usersRes, propertiesRes, collaborationsRes, slidesRes] = await Promise.all([
-          usersAPI.getAll(),
-          propertiesAPI.getAll(),
-          collaborationsAPI.getAll(),
-          slidesAPI.getAll(),
-        ]);
-
-        setStats({
-          users: usersRes.length || 0,
-          properties: propertiesRes.length || 0,
-          collaborations: collaborationsRes.length || 0,
-          slides: slidesRes.length || 0,
-        });
-      } catch (error) {
-        console.error('Error fetching stats:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
+    // CRITICAL: Only fetch data if we have a valid token AND user is authenticated
+    if (!token || !isAuthenticated) {
+      setLoading(false);
+      return;
+    }
+    
     fetchStats();
-  }, []);
+  }, [token, isAuthenticated]);
+
+  const fetchStats = async () => {
+    // CRITICAL: Double-check token before making any API calls
+    if (!token) {
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const [usersRes, propertiesRes, collaborationsRes, slidesRes] = await Promise.all([
+        usersAPI.getAll(),
+        propertiesAPI.getAll(),
+        collaborationsAPI.getAll(),
+        slidesAPI.getAll(),
+      ]);
+
+      setStats({
+        users: usersRes.length || 0,
+        properties: propertiesRes.length || 0,
+        collaborations: collaborationsRes.length || 0,
+        slides: slidesRes.length || 0,
+      });
+    } catch (error) {
+      console.error('Error fetching stats:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   if (loading) {
     return (

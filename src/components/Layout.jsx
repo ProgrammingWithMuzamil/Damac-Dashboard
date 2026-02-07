@@ -2,9 +2,10 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import { useAuth } from '../contexts/AuthContext.jsx';
+import LogoutConfirmModal from './LogoutConfirmModal.jsx';
 
 const Layout = () => {
-  const { user, logout } = useAuth();
+  const { user, logout, showLogoutModal, confirmLogout, cancelLogout } = useAuth();
 
   return (
     <div className="flex min-h-screen">
@@ -13,7 +14,7 @@ const Layout = () => {
         <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-10">
           <div className="px-4 sm:px-8 py-4 flex justify-between items-center">
             <h2 className="text-lg sm:text-xl font-semibold text-gray-800">
-              Welcome back, {user?.name || 'Admin'}
+              Welcome back, {user?.username || user?.email || 'Admin'}
             </h2>
             <div className="flex items-center space-x-2 sm:space-x-4">
               <span className="hidden sm:block text-gray-600">{user?.email}</span>
@@ -32,6 +33,13 @@ const Layout = () => {
           </div>
         </main>
       </div>
+      
+      {/* Logout Confirmation Modal */}
+      <LogoutConfirmModal
+        isOpen={showLogoutModal}
+        onConfirm={confirmLogout}
+        onCancel={cancelLogout}
+      />
     </div>
   );
 };

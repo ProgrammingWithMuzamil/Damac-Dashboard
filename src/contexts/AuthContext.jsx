@@ -1,6 +1,22 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { authAPI } from '../services/api';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  loginUser,
+  fetchProfile,
+  logout as logoutAction,
+  clearError,
+  setTokenFromStorage,
+  updateUser as updateUserAction,
+  selectUser,
+  selectToken,
+  selectIsAuthenticated,
+  selectProfileLoaded,
+  selectAuthLoading,
+  selectAuthError,
+  selectIsAdmin,
+  selectIsAgent
+} from '../store/authSlice';
 
 const AuthContext = createContext();
 
@@ -13,101 +29,103 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const dispatch = useDispatch();
+  const user = useSelector(selectUser);
+  const token = useSelector(selectToken);
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const profileLoaded = useSelector(selectProfileLoaded);
+  const loading = useSelector(selectAuthLoading);
+  const error = useSelector(selectAuthError);
+  const isAdmin = useSelector(selectIsAdmin);
+  const isAgent = useSelector(selectIsAgent);
+
+  const [showLogoutModal, setShowLogoutModal] = React.useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      // Verify token and get user profile
-      authAPI.getProfile()
-        .then(response => {
-          console.log('Profile response:', response);
-          setUser(response.user);
-        })
-        .catch((error) => {
-          console.error('Profile verification failed:', error);
-          console.error('Error response:', error.response);
-          // Don't remove token on profile failure - let user stay logged in
-          console.log('Profile failed but keeping user logged in');
-          // Set a default user to prevent logout
-          setUser({ id: null, name: 'User', email: '', role: 'user' });
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    } else {
-      setLoading(false);
+    const storedToken = localStorage.getItem('token');
+    if (storedToken && !token) {
+      dispatch(setTokenFromStorage(storedToken));
     }
-  }, []);
+  }, [dispatch, token]);
+
+  useEffect(() => {
+    if (token && !user && !profileLoaded && !loading) {
+      dispatch(fetchProfile())
+        .unwrap()
+        .catch((error) => {
+          console.error('Profile fetch failed:', error);
+        });
+    }
+  }, [dispatch, token, user, profileLoaded, loading]);
 
   const login = async (email, password) => {
     try {
-      setLoading(true);
-      setError(null);
-      console.log('Attempting login with:', email);
-      const response = await authAPI.login(email, password);
-      console.log('Login response:', response);
+      dispatch(clearError());
+      const result = await dispatch(loginUser({ email, password }));
 
-      if (response.token) {
-        localStorage.setItem('token', response.token);
-        setUser(response.user);
+      if (loginUser.fulfilled.match(result)) {
         toast.success('Login successful!');
-        console.log('Login successful, user set:', response.user);
+        return result.payload;
+      } else {
+        throw new Error(result.payload || 'Login failed');
       }
-
-      return response;
     } catch (err) {
-      console.error('Login error:', err);
-      console.error('Login error response:', err.response);
-      const errorMessage = err.response?.data?.message || 'Login failed';
-      setError(errorMessage);
+      const errorMessage = err.message || 'Login failed';
       toast.error(errorMessage);
       throw err;
-    } finally {
-      setLoading(false);
     }
   };
 
   const logout = () => {
-    localStorage.removeItem('token');
-    setUser(null);
-    setError(null);
+    setShowLogoutModal(true);
+  };
+
+  const confirmLogout = () => {
+    dispatch(logoutAction());
+    setShowLogoutModal(false);
     toast.success('Logged out successfully!');
+  };
+
+  const cancelLogout = () => {
+    setShowLogoutModal(false);
   };
 
   const register = async (userData) => {
     try {
-      setLoading(true);
-      setError(null);
+      dispatch(clearError());
+      const { authAPI } = await import('../services/modules/auth');
       const response = await authAPI.register(userData);
 
       if (response.token) {
-        localStorage.setItem('token', response.token);
-        setUser(response.user);
+        await dispatch(loginUser({ email: userData.email, password: userData.password }));
         toast.success('Registration successful!');
       }
 
       return response;
     } catch (err) {
       const errorMessage = err.response?.data?.message || 'Registration failed';
-      setError(errorMessage);
       toast.error(errorMessage);
       throw err;
-    } finally {
-      setLoading(false);
     }
+  };
+  const updateUser = (userData) => {
+    dispatch(updateUserAction(userData));
   };
 
   const value = {
     user,
     login,
     logout,
+    confirmLogout,
+    cancelLogout,
     register,
+    updateUser,
     loading,
     error,
-    isAuthenticated: !!user,
+    isAuthenticated,
+    isAdmin,
+    isAgent,
+    showLogoutModal,
   };
 
   return (
