@@ -47,7 +47,7 @@ const YourPerfect = () => {
     //   label: 'Updated At',
     //   render: (value) => new Date(value).toLocaleDateString()
     // },
-  ]; Recommended
+  ];
 
   const formFields = [
     {
